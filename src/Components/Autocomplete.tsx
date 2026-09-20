@@ -44,27 +44,24 @@ export const Autocomplete: React.FC<Props> = ({
           onFocus={() => setOnFocus(true)}
         />
       </div>
-      <div className="dropdown-content">
-        {onFocus
-          ? filteredPeople.map(person => (
-              <div
-                className="dropdown-item"
-                data-cy="suggestion-item"
-                key={person.slug}
-                onClick={() => {
-                  setQuery(person.name);
-                  setAppliedQuery(person.name);
-                  setOnFocus(false);
-                  onSelected(person);
-                }}
-              >
-                <p className="has-text-link">{person.name}</p>
-              </div>
-            ))
-          : ''}
-        {}
-      </div>
-      {onFocus && filteredPeople.length === 0 ? (
+      {onFocus &&
+        filteredPeople.map(person => (
+          <div className="dropdown-content" key={person.slug}>
+            <div
+              className="dropdown-item"
+              data-cy="suggestion-item"
+              onClick={() => {
+                setQuery(person.name);
+                setAppliedQuery(person.name);
+                setOnFocus(false);
+                onSelected(person);
+              }}
+            >
+              <p className="has-text-link">{person.name}</p>
+            </div>
+          </div>
+        ))}
+      {onFocus && filteredPeople.length === 0 && (
         <div
           className="
             notification
@@ -78,8 +75,6 @@ export const Autocomplete: React.FC<Props> = ({
         >
           <p className="has-text-danger">No matching suggestions</p>
         </div>
-      ) : (
-        ''
       )}
     </div>
   );
