@@ -44,11 +44,13 @@ export const Autocomplete: React.FC<Props> = ({
           onFocus={() => setOnFocus(true)}
         />
       </div>
-      {onFocus &&
-        filteredPeople.map(person => (
-          <div className="dropdown-content" key={person.slug}>
+
+      {onFocus && (
+        <div className="dropdown-content">
+          {filteredPeople.map(person => (
             <div
               className="dropdown-item"
+              key={person.slug}
               data-cy="suggestion-item"
               onClick={() => {
                 setQuery(person.name);
@@ -59,8 +61,9 @@ export const Autocomplete: React.FC<Props> = ({
             >
               <p className="has-text-link">{person.name}</p>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      )}
       {onFocus && filteredPeople.length === 0 && (
         <div
           className="
